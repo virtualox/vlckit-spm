@@ -1,0 +1,6 @@
+.DS_Store
+.build/
+*.xcframework
+*.xcframework.zip
+*.tar.xz
+VLCKit-binary/
