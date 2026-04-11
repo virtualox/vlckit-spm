@@ -1,10 +1,10 @@
 # VLCKitSPM
 
-Swift Package Manager wrapper for VLCKit 4.0.0a18.
+Swift Package Manager wrapper for VLCKit 4.0.0a19.
 
 ## Features
 
-- VLCKit 4.0.0a18 (December 2025)
+- VLCKit 4.0.0a19 (April 2026)
 - Picture-in-Picture support on iOS and macOS
 - Unified framework for all Apple platforms
 - Supports iOS, tvOS, macOS, watchOS, and visionOS
@@ -15,7 +15,7 @@ Add to your `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/virtualox/vlckit-spm", from: "4.0.0-alpha.18")
+    .package(url: "https://github.com/virtualox/vlckit-spm", from: "4.0.0-alpha.19")
 ]
 ```
 
