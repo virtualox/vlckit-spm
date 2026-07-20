@@ -8,32 +8,42 @@ Swift Package Manager wrapper for VLCKit 4.0.0a21.
 > unified `XCFramework` you can consume with Swift Package Manager. So we built one and hosted
 > it here.
 >
-> **That reason is going away.** VideoLAN merge request
-> [!394 "Packaging: add Swift Package Manager support"](https://code.videolan.org/videolan/VLCKit/-/merge_requests/394)
-> **was merged on 2026-07-20**. It adds a `Package.swift` to VLCKit itself, pointing at a
-> VideoLAN-hosted binary target, plus the tooling to build, checksum and publish it. It takes the
-> same approach this package does: one monolithic universal `VLCKit.xcframework` covering every
-> Apple platform.
+> **That reason is gone**, in two merge requests on 2026-07-20:
 >
-> **Where it stands right now (2026-07-20):**
+> - [!394 "Packaging: add Swift Package Manager support"](https://code.videolan.org/videolan/VLCKit/-/merge_requests/394)
+>   added a `Package.swift` to VLCKit itself, pointing at a VideoLAN-hosted binary target, plus the
+>   tooling to build, checksum and publish it. It takes the same approach this package does: one
+>   monolithic universal `VLCKit.xcframework` covering every Apple platform.
+> - [!395 "Distribute 4.0.0a22 via cocoapods and SPM"](https://code.videolan.org/videolan/VLCKit/-/merge_requests/395)
+>   replaced that manifest's placeholder `url` and `checksum` with real values and cut the release.
+>   This is the one that made it usable.
 >
-> - The manifest is on VLCKit's `master`, but its `url` and `checksum` are still the
->   `REPLACEWITHVERSION` / `REPLACEWITHCHECKSUM` placeholders that VideoLAN's deploy tooling fills
->   in when a release is cut.
-> - **No tagged VLCKit release carries it yet** - `4.0.0a21` does not, and `4.0.0a22` does not exist
->   at the time of writing. So the official package is not something you can depend on today.
-> - Until it is, **`4.0.0-alpha.21` from this repository remains the working option**, and it is
->   expected to be the last release published here.
+> **It is available now.** VideoLAN tagged `4.0.0-a22` carrying that fully populated manifest, with
+> the same platform coverage this package ships.
 >
-> **When the official package becomes available**, depend on VideoLAN's instead: upstream-maintained,
-> canonical, and released in lockstep with VLCKit rather than whenever we get around to a rebuild.
-> Note two differences when you migrate: the upstream product is named **`VLCKit`** rather than
-> `VLCKitSPM`, so your `import` changes, and its minimum deployment targets are lower
-> (iOS 12, macOS 10.13, tvOS 12, watchOS 7.4, visionOS 1).
+> **Use it instead of this package:**
 >
-> Nothing breaks today: `4.0.0-alpha.21` and the earlier tags stay available, and existing
-> `.package(url:)` references keep resolving. We would rather point you at the real thing than keep
-> a parallel copy alive.
+> ```swift
+> dependencies: [
+>     .package(url: "https://code.videolan.org/videolan/VLCKit.git", exact: "4.0.0-a22")
+> ]
+> ```
+>
+> **Three things to know when you migrate:**
+>
+> 1. **The tag naming changed.** It is `4.0.0-a22`, **with a hyphen** - unlike `4.0.0a21` and
+>    `4.0.0a20`. `4.0.0a22` does not exist and returns a 404. Extrapolating the old pattern fetches
+>    nothing.
+> 2. **The product is named `VLCKit`, not `VLCKitSPM`**, so your `import` and your target dependency
+>    both change.
+> 3. **Minimum deployment targets are lower** upstream: iOS 12, macOS 10.13, tvOS 12, watchOS 7.4,
+>    visionOS 1.
+>
+> **`4.0.0-alpha.21` is the last release published here.** It and the earlier tags stay available and
+> existing `.package(url:)` references keep resolving, so nothing breaks if you are not ready to move.
+> But new work should go to VideoLAN's package: it is upstream-maintained, canonical, and released in
+> lockstep with VLCKit rather than whenever we get around to a rebuild. We would rather point you at
+> the real thing than keep a parallel copy alive.
 
 ## Features
 
@@ -104,8 +114,8 @@ This is a build of the official VideoLAN VLCKit sources at the tag above, packag
 Swift Package because VideoLAN has not published a unified `XCFramework` of its own. **No patches
 are applied on top of upstream** - this is stock VLCKit, built and repackaged, nothing more.
 
-That gap is being closed upstream (see the notice at the top), so this package is expected to stop
-at `4.0.0-alpha.21`. Prefer VideoLAN's own Swift Package as soon as a tagged release carries it.
+That gap is now closed upstream (see the notice at the top). `4.0.0-alpha.21` is the last release
+published here - use VideoLAN's own Swift Package at tag `4.0.0-a22` or later.
 
 ## License
 
