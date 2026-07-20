@@ -1,10 +1,35 @@
 # VLCKitSPM
 
-Swift Package Manager wrapper for VLCKit 4.0.0a20.
+Swift Package Manager wrapper for VLCKit 4.0.0a21.
+
+> ## This package is winding down - VLCKit is getting official SPM support
+>
+> This wrapper exists for one reason: VideoLAN publishes VLCKit for CocoaPods, but not as a
+> unified `XCFramework` you can consume with Swift Package Manager. So we built one and hosted
+> it here.
+>
+> **That reason is going away.** VideoLAN merge request
+> [!394 "Packaging: add Swift Package Manager support"](https://code.videolan.org/videolan/VLCKit/-/merge_requests/394)
+> adds a `Package.swift` to VLCKit itself, pointing at a VideoLAN-hosted binary target, plus the
+> tooling to build, checksum and publish it. It takes the same approach this package does: one
+> monolithic universal `VLCKit.xcframework` covering every Apple platform. As of 2026-07-20 it is
+> open and set to merge once CI passes.
+>
+> **What that means for you:**
+>
+> - **`4.0.0-alpha.21` is expected to be the last release published here.**
+> - Once a VLCKit release ships carrying that manifest - `4.0.0a22` or whichever tag lands first -
+>   depend on **VideoLAN's own package** instead. It will be the upstream-maintained, canonical
+>   source, released in lockstep with VLCKit itself rather than whenever we get around to a rebuild.
+> - Nothing breaks today. `4.0.0-alpha.21` and the earlier tags stay available, and existing
+>   `.package(url:)` references keep resolving.
+>
+> We would rather point you at the real thing than keep a parallel copy alive. This README will be
+> updated with the upstream coordinates once the manifest lands in a tagged release.
 
 ## Features
 
-- VLCKit 4.0.0a20 (July 2026)
+- VLCKit 4.0.0a21 (July 2026)
 - Picture-in-Picture support on iOS and macOS
 - Unified framework for all Apple platforms
 - Supports iOS, tvOS, macOS, watchOS, and visionOS
@@ -15,7 +40,7 @@ Add to your `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/virtualox/vlckit-spm", from: "4.0.0-alpha.20")
+    .package(url: "https://github.com/virtualox/vlckit-spm", from: "4.0.0-alpha.21")
 ]
 ```
 
@@ -42,6 +67,11 @@ player.play()
 | watchOS | 6.0 |
 | visionOS | 1.0 |
 
+## What's New in 4.0.0a21
+
+- libVLC updated to `c9628afc`
+- Radio service discovery: stations are now exposed as streams, and results are sorted by votes in descending order
+
 ## What's New in 4.0
 
 - Added support for Picture-in-Picture playback on iOS and macOS
@@ -50,6 +80,24 @@ player.play()
 - Dual subtitle track support
 - Complete rewrite of event management
 - Full C API exposure
+
+## Versions
+
+| Package version | VLCKit tag | Released |
+|-----------------|------------|----------|
+| 4.0.0-alpha.21 | `4.0.0a21` | July 2026 |
+| 4.0.0-alpha.20 | `4.0.0a20` | July 2026 |
+| 4.0.0-alpha.19 | `4.0.0a19` | April 2026 |
+| 4.0.0-alpha.18 | `4.0.0a18` | December 2025 |
+
+## About this package
+
+This is a build of the official VideoLAN VLCKit sources at the tag above, packaged as a binary
+Swift Package because VideoLAN has not published a unified `XCFramework` of its own. **No patches
+are applied on top of upstream** - this is stock VLCKit, built and repackaged, nothing more.
+
+That gap is being closed upstream (see the notice at the top), so this package is expected to stop
+at `4.0.0-alpha.21`. Prefer VideoLAN's own Swift Package as soon as a tagged release carries it.
 
 ## License
 
