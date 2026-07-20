@@ -10,22 +10,30 @@ Swift Package Manager wrapper for VLCKit 4.0.0a21.
 >
 > **That reason is going away.** VideoLAN merge request
 > [!394 "Packaging: add Swift Package Manager support"](https://code.videolan.org/videolan/VLCKit/-/merge_requests/394)
-> adds a `Package.swift` to VLCKit itself, pointing at a VideoLAN-hosted binary target, plus the
-> tooling to build, checksum and publish it. It takes the same approach this package does: one
-> monolithic universal `VLCKit.xcframework` covering every Apple platform. As of 2026-07-20 it is
-> open and set to merge once CI passes.
+> **was merged on 2026-07-20**. It adds a `Package.swift` to VLCKit itself, pointing at a
+> VideoLAN-hosted binary target, plus the tooling to build, checksum and publish it. It takes the
+> same approach this package does: one monolithic universal `VLCKit.xcframework` covering every
+> Apple platform.
 >
-> **What that means for you:**
+> **Where it stands right now (2026-07-20):**
 >
-> - **`4.0.0-alpha.21` is expected to be the last release published here.**
-> - Once a VLCKit release ships carrying that manifest - `4.0.0a22` or whichever tag lands first -
->   depend on **VideoLAN's own package** instead. It will be the upstream-maintained, canonical
->   source, released in lockstep with VLCKit itself rather than whenever we get around to a rebuild.
-> - Nothing breaks today. `4.0.0-alpha.21` and the earlier tags stay available, and existing
->   `.package(url:)` references keep resolving.
+> - The manifest is on VLCKit's `master`, but its `url` and `checksum` are still the
+>   `REPLACEWITHVERSION` / `REPLACEWITHCHECKSUM` placeholders that VideoLAN's deploy tooling fills
+>   in when a release is cut.
+> - **No tagged VLCKit release carries it yet** - `4.0.0a21` does not, and `4.0.0a22` does not exist
+>   at the time of writing. So the official package is not something you can depend on today.
+> - Until it is, **`4.0.0-alpha.21` from this repository remains the working option**, and it is
+>   expected to be the last release published here.
 >
-> We would rather point you at the real thing than keep a parallel copy alive. This README will be
-> updated with the upstream coordinates once the manifest lands in a tagged release.
+> **When the official package becomes available**, depend on VideoLAN's instead: upstream-maintained,
+> canonical, and released in lockstep with VLCKit rather than whenever we get around to a rebuild.
+> Note two differences when you migrate: the upstream product is named **`VLCKit`** rather than
+> `VLCKitSPM`, so your `import` changes, and its minimum deployment targets are lower
+> (iOS 12, macOS 10.13, tvOS 12, watchOS 7.4, visionOS 1).
+>
+> Nothing breaks today: `4.0.0-alpha.21` and the earlier tags stay available, and existing
+> `.package(url:)` references keep resolving. We would rather point you at the real thing than keep
+> a parallel copy alive.
 
 ## Features
 
